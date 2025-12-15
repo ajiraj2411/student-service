@@ -1,0 +1,153 @@
+definitions:
+  model.Student:
+    properties:
+      age:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /students:
+    get:
+      description: Retrieve list of all students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Student'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all students
+      tags:
+      - students
+    post:
+      consumes:
+      - application/json
+      description: Create a new student record
+      parameters:
+      - description: Student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/model.Student'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Student'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a student
+      tags:
+      - students
+  /students/{id}:
+    delete:
+      description: Delete student by ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a student
+      tags:
+      - students
+    put:
+      consumes:
+      - application/json
+      description: Update student by ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/model.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a student
+      tags:
+      - students
+swagger: "2.0"
